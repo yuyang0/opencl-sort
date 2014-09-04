@@ -1,0 +1,15 @@
+*.o
+*.a
+*.db
+*.bak
+*.bakk
+*.d
+*~
+\#*
+bsort
+/TODO
+/test
+/tests
+/build
+/resource
+/3rd

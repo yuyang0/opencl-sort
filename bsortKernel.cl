@@ -1,6 +1,6 @@
 #define GROUP_SIZE 256
 #define CHALLENGE_LEN 32
-
+/*
 typedef struct entry_s{
     cl_char[CHALLENGE_LEN+1];
     cl_int idx;
@@ -20,7 +20,7 @@ cl_int compare(cl_char *p1, cl_char *p2, cl_int len)
     }
     return 0;
 }
-
+*/
 __kernel
 void parallelBitonicSort(__global uint * data,
                          const uint stage,

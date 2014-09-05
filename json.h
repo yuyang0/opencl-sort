@@ -12,9 +12,13 @@
 #ifndef _JSON_H_
 #define _JSON_H_ 1
 
+char *skipEscapeChar(char *data);
+char *skipSpaces(char *data);
+char *skipString(char *data);
+
 char *getValue(char *data, char *key);
 
-char **splitRecords(char *data);
+// char **splitRecords(char *data);
 
 #endif /* _JSON_H_ */
 

@@ -225,69 +225,7 @@ char *getValue(char *data, char *key)
     return NULL;
 }
 
-/*
- * split the string into json records
- */
-static char *nextRecord(char *data)
-{
-    int numBraces = 0;
-    data = skipSpaces(data);
-    assert(*data == '{');
 
-    for(; *data != '\0'; data++)
-    {
-        if(*data == '{'){
-            numBraces++;
-        }
-        if(*data == '}'){
-            numBraces--;
-        }
-        if(*data == '\"'){
-            data = skipString(data);
-            data--;             /*  */
-        }
-        if(*data == '\\'){
-            data = skipEscapeChar(data);
-            data--;
-        }
-
-        if(numBraces == 0){
-            data++;             /* ignore  } */
-            break;
-        }
-    }
-    if(numBraces > 0){
-        printf("unbalanced braces..");
-        exit(-1);
-    }
-    return data;
-}
-
-char **splitRecords(char *data)
-{
-    int numRecords = 0;
-    char *start = data, *end;
-    for(; *data != '\0'; numRecords++)
-    {
-        printf("record %d\n", numRecords);
-
-        start = skipSpaces(start);
-        if(*start == '\0'){
-            break;
-        }
-        end = nextRecord(start);
-        *end = '\0';
-        start = end + 1;
-    }
-    char **arr = malloc(sizeof(char *)*(numRecords+1));
-    for(int i = 0; i< numRecords; i++)
-    {
-        arr[i] = data;
-        data = data + strlen(data) + 1;
-    }
-    arr[numRecords] = NULL;
-    return arr;
-}
 /* int main(int argc, char *argv[]) */
 /* { */
 /*     char *log = "{\"slice\": \"value of slice\", \"challenge\": \"value of challenge\"}"; */

@@ -26,7 +26,7 @@
 #include "clutil.h"
 
 #define GROUP_SIZE     256
-const unsigned int INPUT_LENGTH = 1<<24;
+const unsigned int INPUT_LENGTH = 1<<18;
 const cl_uint sortOrder = 1; // descending order else 1 for ascending order
 
 /*
@@ -170,17 +170,17 @@ int main(int argc, char *argv[])
                                                    (const char**)&pgmSource,
                                                    NULL,
                                                    &err);
-
+    clCheckEqWithMsg(err, CL_SUCCESS, "can't create program..");
 	// Build (compile) the program for the devices with clBuildProgram()
 	err = clBuildProgram(program, numDevices, devices, NULL, NULL, NULL);
-
+    clCheckEqWithMsg(err, CL_SUCCESS, "Can't build program.");
 	//-----------------------------------------------------
 	// Create the kernel
 	//-----------------------------------------------------
 	cl_kernel kernel = NULL;
 
 	kernel = clCreateKernel(program, "parallelBitonicSort", &err);
-	clCheckEqWithMsg(err, CL_SUCCESS, "Error: Can't get kernel from program.");
+	clCheckEqWithMsg(err, CL_SUCCESS, "Can't get kernel from program.");
 	//-----------------------------------------------------
 	// Set the kernel arguments
 	//-----------------------------------------------------

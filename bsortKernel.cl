@@ -1,10 +1,31 @@
 #define GROUP_SIZE 256
+#define CHALLENGE_LEN 32
+
+typedef struct entry_s{
+    cl_char[CHALLENGE_LEN+1];
+    cl_int idx;
+}entry_t;
+
+cl_int compare(cl_char *p1, cl_char *p2, cl_int len)
+{
+    for(cl_int i = 0; i < len; i++)
+    {
+        if(p1[i] == p2[i]){
+            continue;
+        }else if(p1[i] < p2[i]){
+            return -1;
+        }else{
+            return 1;
+        }
+    }
+    return 0;
+}
 
 __kernel
 void parallelBitonicSort(__global uint * data,
-                 const uint stage,
-                 const uint subStage,
-                 const uint direction) {
+                         const uint stage,
+                         const uint subStage,
+                         const uint direction) {
 
     uint threadId = get_global_id(0);
     uint sortIncreasing = direction;

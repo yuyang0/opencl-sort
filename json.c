@@ -19,31 +19,22 @@
 #include "util.h"
 #include "json.h"
 
-#define DEBUG 0
-
 static char *skipElement(char *data);
 
-void debug(char *ss)
-{
-    if(DEBUG){
-        printf("DEBUG: %s\n", ss);
-    }
-}
-
-static char *skipEscapeChar(char *data)
+char *skipEscapeChar(char *data)
 {
     assert(*data == '\\');
     return data+2;
 }
 
-static char *skipSpaces(char *data)
+char *skipSpaces(char *data)
 {
     for(; isspace(*data); data++)
         ;
     return data;
 }
 
-static char *skipString(char *data)
+char *skipString(char *data)
 {
     assert(*data == '\"');
     data++;      //skip the start quote
@@ -53,7 +44,6 @@ static char *skipString(char *data)
             data = skipEscapeChar(data);
         }
     }
-    debug("skipping string finished...");
     return data+1;
 }
 
@@ -64,14 +54,13 @@ static char *skipNumber(char *data)
     }
     for(; isdigit(*data); data++)
         ;
-    debug("skipping number finished...");
     return data;
 }
 
 static char *skipList(char *data)
 {
     assert(*data == '[');
-    data++;      //skip the start square brace
+    data++;      //skip the start square bracket
     /* skip empty array */
     data = skipSpaces(data);
     if (*data == ']'){
@@ -127,6 +116,7 @@ static char *skipObject(char *data)
             return data+1;
         }else if(*data == ','){
             data++;
+            continue;
         }else{
             printf("Error: expect , but gives %c\n", *data);
             exit(-1);
@@ -146,10 +136,8 @@ static char *skipElement(char *data)
     }else if(*data == '+' || *data=='-' || isdigit(*data)){
         return skipNumber(data);
     }else if(*data == '\"'){
-        debug("skipping string\n");
         return skipString(data);
     }else if(*data == '['){
-        debug("skipping list\n");
         return skipList(data);
     }else if(*data == '{'){
         return skipObject(data);
@@ -161,10 +149,7 @@ static char *skipElement(char *data)
 
 /*
  * fetch the value associated with key.
- * NOTICE: the key is a string and should contain start quote and end quote...
- *         if you pass a buffer argument, it means that this function
- *         should use the memory surpport by caller. if you pass NULL
- *         to argument`
+ * NOTICE: the key is a string and should contain start quote and end quote.
  */
 char *getValue(char *data, char *key)
 {
@@ -217,6 +202,7 @@ char *getValue(char *data, char *key)
             return NULL;
         }else if(*data == ','){
             data++;
+            continue;
         }else{
             printf("Error: expect , but gives %c\n", *data);
             exit(-1);

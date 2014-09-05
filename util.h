@@ -38,5 +38,12 @@ int strcount(char *ss, char c);
 char *strlstrip(char *str, char *d_chars);
 char *strrstrip(char *str, char *d_chars);
 char *strstrip(char *str, char *d_chars);
+
+#ifdef DEBUG
+    #define DEBUG_PRINT(fmt, args...)    fprintf(stderr, fmt, ## args)
+#else
+    #define DEBUG_PRINT(fmt, args...)    /* do nothing in release build*/
+#endif
+
 #endif /* _UTIL_H_ */
 

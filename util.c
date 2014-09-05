@@ -13,16 +13,28 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <stdarg.h>
+
 #include <string.h>
 #include <assert.h>
 
 #include "util.h"
-/* return true if the string contain the character
-   otherwith return false
+
+/* int debug(const char *format, ...) */
+/* { */
+/*     va_list args; */
+/*     va_start(args, format); */
+/*     vprintf(format, args); */
+/*     va_end(args); */
+/*     return 0; */
+/* } */
+
+/*
+ * return true if the string contain the character otherwith return false
 */
 static bool contain_char(char *s, char c)
 {
-    for (; *s; ++s)
+    for (; *s != '\0'; ++s)
     {
         if (*s == c)
         {

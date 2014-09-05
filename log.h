@@ -14,6 +14,8 @@
 
 #define CHALLENGE_LEN 32
 
+extern int numChallenges;
+
 typedef struct entry_s
 {
     char challenge[CHALLENGE_LEN+1];
@@ -27,5 +29,6 @@ entry_t *getChallengeArray(const char *fname);
 char *entryToLog(entry_t *e);
 void releaseResource();
 
+/* int getNumChallenges(); */
 #endif /* _LOG_H_ */
 

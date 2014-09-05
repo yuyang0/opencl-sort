@@ -167,7 +167,7 @@ char *entryToLog(entry_t *e)
     return challengeLogArr[idx];
 }
 
-void releaseResource()
+void releaseLogResource()
 {
     Free(logData);
     Free(challengeLogArr);
@@ -177,7 +177,7 @@ void releaseResource()
  * the entry array must be sorted
  * return a sorted log array
  */
-void sortLog(entry_t *entries, int length, const char *outpuFname)
+void writeSortedLogToFile(entry_t *entries, int length, const char *outpuFname)
 {
     FILE *fp = fopen(outpuFname, "wb");
     assert(fp != NULL);

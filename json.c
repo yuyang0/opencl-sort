@@ -66,7 +66,6 @@ static char *skipList(char *data)
     if (*data == ']'){
         return data+1;
     }
-
     for(; ;)
     {
         data = skipSpaces(data);

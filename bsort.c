@@ -24,58 +24,26 @@
 
 #include "util.h"
 #include "clutil.h"
+#include "log.h"
 
 #define GROUP_SIZE     256
 const unsigned int INPUT_LENGTH = 1<<18;
 const cl_uint sortOrder = 1; // descending order else 1 for ascending order
 
-/*
- * check if the data is a sorted array.
- */
-int checkResult(int *data, int length, int ascend){
-    if (ascend == TRUE){
-        for(int i = 0; i < length-1; i++){
-            if(data[i] > data[i+1]){
-                return FALSE;
-            }
-        }
-    }else{                      /* descend */
-        for(int i = 0; i < length; i++){
-            if(data[i] < data[i+1]){
-                return FALSE;
-            }
-        }
-    }
-    return TRUE;
-}
-
-void fillRandomData(int *data, int length){
-    srand((unsigned)time(NULL));
-    for(int i = 0; i < length; i++){
-        data[i] = rand();
-    }
-}
-
 int main(int argc, char *argv[])
 {
+    entry_t *entries = getChallengeArray("./resource/log-data.txt");
+    const size_t datasize = sizeof(entry_t) * numChallenges;
+
     cl_int err;
     cl_uint numPlatforms = 0;
 	cl_platform_id *platforms = NULL;
 
     const int length = INPUT_LENGTH;
-    const int datasize = length * sizeof(int);
-    int *input = NULL;    //input array on host
-    int *output = NULL;   //output array on host
+
+    char *input = (char *)entries;    //input array on host
+    char *output = (char *)entries;   //output array on host
     cl_mem inputBuffer = NULL;  // Input array on the device
-
-    {
-        input = (int *)malloc(INPUT_LENGTH * sizeof(int));
-        output = (int *)malloc(INPUT_LENGTH * sizeof(int));
-
-        memset(input, 0, INPUT_LENGTH * sizeof(int));
-        memset(output, 0, INPUT_LENGTH * sizeof(int));
-        fillRandomData(input, length);
-    }
 
 	// Use clGetPlatformIDs() to retrieve the number of
 	// platforms
@@ -173,7 +141,15 @@ int main(int argc, char *argv[])
     clCheckEqWithMsg(err, CL_SUCCESS, "can't create program..");
 	// Build (compile) the program for the devices with clBuildProgram()
 	err = clBuildProgram(program, numDevices, devices, NULL, NULL, NULL);
-    clCheckEqWithMsg(err, CL_SUCCESS, "Can't build program.");
+
+    if (err != CL_SUCCESS)
+    {
+        char buildLog[16384];
+        clGetProgramBuildInfo(program, devices[0], CL_PROGRAM_BUILD_LOG,
+                              sizeof(buildLog), buildLog, NULL);
+        printf("Error in kernel: %s\n", buildLog);
+        exit(-1);
+    }
 	//-----------------------------------------------------
 	// Create the kernel
 	//-----------------------------------------------------
@@ -249,11 +225,11 @@ int main(int argc, char *argv[])
     /*     printf("%d\t", output[i]); */
 
     printf("checking result...\n");
-    int ret = checkResult(output, INPUT_LENGTH, sortOrder);
-    if (ret == TRUE)
-        printf("sort success..\n");
-    else
-        printf("sort fail...\n");
+    for(int i=0; i< numChallenges; i++)
+    {
+        entry_t *p = entries + i;
+        printf("challenge(%9d): %s, index: %d \n", i, p->challenge, p->idx);
+    }
 	//-----------------------------------------------------
 	// Release OpenCL resources
 	//-----------------------------------------------------
@@ -268,11 +244,11 @@ int main(int argc, char *argv[])
 	clReleaseContext(ctx);
 
 	// Free host resources
+    releaseLogResource();
 	Free(platforms);
 	Free(devices);
 	Free(pgmSource);
-    Free(input);
-    Free(output);
+    Free(entries);
 
     return 0;
 }

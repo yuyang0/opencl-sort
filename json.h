@@ -18,7 +18,5 @@ char *skipString(char *data);
 
 char *getValue(char *data, char *key);
 
-// char **splitRecords(char *data);
-
 #endif /* _JSON_H_ */
 

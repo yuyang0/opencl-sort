@@ -27,8 +27,9 @@ char *extractChallenge(char *data);
 
 entry_t *getChallengeArray(const char *fname);
 char *entryToLog(entry_t *e);
-void releaseResource();
+void releaseLogResource();
 
+void writeSortedLogToFile(entry_t *entries, int length, const char *outpuFname);
 /* int getNumChallenges(); */
 #endif /* _LOG_H_ */
 

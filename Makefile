@@ -3,6 +3,7 @@ AR = ar
 RANLIB = ranlib
 
 CFLAGS = -g -Wall -std=c99
+DEBUG = -DDEBUG
 
 OPENCL_INC_PATH = -I/opt/AMDAPPSDK-2.9-1/include
 OPENCL_LIB_PATH = -L/opt/AMDAPPSDK-2.9-1/lib/x86_64
@@ -20,7 +21,7 @@ $(EXE_FILE): $(OBJS)
 #SOURCES为所有的源文件列表
 
 %.o:%.c
-	$(CC) -c $(CFLAGS) $(CPPFLAGS) $< -o $@ $(OPENCL_INC_PATH)
+	$(CC) -c $(CFLAGS) $(CPPFLAGS) $< -o $@ $(OPENCL_INC_PATH) $(DEBUG)
 
 # ignore the warn message "XXX.d: No such file or directory"
 -include $(SOURCES:.c=.d)

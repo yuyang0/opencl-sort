@@ -95,7 +95,7 @@ int main(int argc, char *argv[])
 		numDevices,
 		devices,
 		NULL);
-	clCheckEqWithMsg(err, CL_SUCCESS, "can't get devices.");
+	clCheckError(err, "can't get devices.");
 
     //-----------------------------------------------------
 	// Create a context
@@ -104,7 +104,7 @@ int main(int argc, char *argv[])
 
 	ctx = clCreateContext(NULL, numDevices, devices,
                               NULL, NULL, &err);
-	clCheckEqWithMsg(err, CL_SUCCESS, "Can't create context.");
+	clCheckError(err, "Can't create context.");
 
 	//-----------------------------------------------------
 	// Create a command queue
@@ -113,20 +113,20 @@ int main(int argc, char *argv[])
 	cl_command_queue queue;
 
 	queue = clCreateCommandQueue(ctx, devices[0], 0, &err);
-	clCheckEqWithMsg(err, CL_SUCCESS, "Can't create command queue..");
+	clCheckError(err, "Can't create command queue..");
 
 	//-----------------------------------------------------
 	// Create device buffers
 	//-----------------------------------------------------
 	inputBuffer = clCreateBuffer(ctx, CL_MEM_READ_WRITE,
                                  datasize, NULL, &err);
-    clCheckEqWithMsg(err, CL_SUCCESS, "can't create device buffer...\n");
+    clCheckError(err, "can't create device buffer...\n");
 	//-----------------------------------------------------
 	// Write host data to device buffers
 	//-----------------------------------------------------
 	err = clEnqueueWriteBuffer(queue, inputBuffer, CL_FALSE, 0,
                                datasize, input, 0, NULL, NULL);
-    clCheckEqWithMsg(err, CL_SUCCESS, "can't write host data to device buffer.\n");
+    clCheckError(err, "can't write host data to device buffer.\n");
 	//-----------------------------------------------------
 	// STEP 7: Create and compile the program
 	//-----------------------------------------------------
@@ -138,7 +138,7 @@ int main(int argc, char *argv[])
                                                    (const char**)&pgmSource,
                                                    NULL,
                                                    &err);
-    clCheckEqWithMsg(err, CL_SUCCESS, "can't create program..");
+    clCheckError(err, "can't create program..");
 	// Build (compile) the program for the devices with clBuildProgram()
 	err = clBuildProgram(program, numDevices, devices, NULL, NULL, NULL);
 
@@ -156,14 +156,14 @@ int main(int argc, char *argv[])
 	cl_kernel kernel = NULL;
 
 	kernel = clCreateKernel(program, "parallelBitonicSort", &err);
-	clCheckEqWithMsg(err, CL_SUCCESS, "Can't get kernel from program.");
+	clCheckError(err, "Can't get kernel from program.");
 	//-----------------------------------------------------
 	// Set the kernel arguments
 	//-----------------------------------------------------
     err = clSetKernelArg(kernel, 0, sizeof(cl_mem),(void*)&inputBuffer);
     err |= clSetKernelArg(kernel, 3, sizeof(cl_uint),(void*)&sortOrder);
 
-	clCheckEqWithMsg(err, CL_SUCCESS, "Can't set kernel's arguments.");
+	clCheckError(err, "Can't set kernel's arguments.");
 
 	//-----------------------------------------------------
 	// Configure the work-item structure
@@ -197,7 +197,7 @@ int main(int argc, char *argv[])
                                          NULL,
                                          &exeEvt);
             clWaitForEvents(1, &exeEvt);
-            clCheckEqWithMsg(err, CL_SUCCESS, "Kernel execution failure!\n");
+            clCheckError(err, "Kernel execution failure!\n");
 
             // let's understand how long it took?
             clGetEventProfilingInfo(exeEvt, CL_PROFILING_COMMAND_START, sizeof(executionStart), &executionStart, NULL);

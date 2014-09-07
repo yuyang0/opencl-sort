@@ -75,6 +75,8 @@ char *readFile(const char *fname)
 	fseek(fp, 0, SEEK_END);
 	int length = ftell(fp);
 	char *data = (char *)malloc((length + 1) * sizeof(char));
+    assert(data != NULL);
+
 	rewind(fp);
 	fread(data, 1, length, fp);
 	data[length] = '\0';
@@ -82,6 +84,49 @@ char *readFile(const char *fname)
 	return data;
 }
 
+
+/* status must equal expect */
+void checkEqWithMsg(int status, int expect, char *msg){
+    if (status != expect){
+        printf("Error: %s\n", msg);
+        exit(-1);
+    }
+}
+/* status != expect */
+void checkNeqWithMsg(int status, int expect, char *msg){
+    if (status == expect){
+        printf("error: %s\n", msg);
+        exit(-1);
+    }
+}
+/* status < expect */
+void checkLtWithMsg(int status, int expect, char *msg){
+    if (status >= expect){
+        printf("Error: %s\n", msg);
+        exit(-1);
+    }
+}
+/* status <= expected */
+void checkLteWithMsg(int status, int expect, char *msg){
+    if (status > expect){
+        printf("Error: %s\n", msg);
+        exit(-1);
+    }
+}
+/* status > expect */
+void checkGtWithMsg(int status, int expect, char *msg){
+    if (status <= expect){
+        printf("Error: %s\n", msg);
+        exit(-1);
+    }
+}
+/* status >= expect */
+void checkGteWithMsg(int status, int expect, char *msg){
+    if (status < expect){
+        printf("Error: %s\n", msg);
+        exit(-1);
+    }
+}
 
 /*
  * string utilities

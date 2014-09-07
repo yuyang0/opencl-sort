@@ -28,6 +28,13 @@ void *Realloc(void *ptr, size_t size);
 
 char *readFile(const char *fname);
 
+void checkEqWithMsg(int status, int expect, char *msg);
+void checkNeqWithMsg(int status, int expect, char *msg);
+void checkLtWithMsg(int status, int expect, char *msg);
+void checkLteWithMsg(int status, int expect, char *msg);
+void checkGtWithMsg(int status, int expect, char *msg);
+void checkGteWithMsg(int status, int expect, char *msg);
+
 /*
  * string utilities
  */

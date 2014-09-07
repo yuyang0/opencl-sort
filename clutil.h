@@ -12,13 +12,12 @@
 #ifndef _CLUTIL_H_
 #define _CLUTIL_H_ 1
 
-const char *clGetErrorString(cl_int error);
-void clCheckEqWithMsg(int status, int expect, char *msg);
-void clCheckNeqWithMsg(int status, int expect, char *msg);
-void clCheckLtWithMsg(int status, int expect, char *msg);
-void clCheckGtWithMsg(int status, int expect, char *msg);
+const char *clGetErrorCode(cl_int error);
+const char *clGetErrorString(cl_int err);
+void clCheckError(int err, char *msg);
 
 cl_context CreateContext();
+cl_command_queue CreateCommandQueue(cl_context context, cl_device_id *device);
 
 #endif /* _CLUTIL_H_ */
 

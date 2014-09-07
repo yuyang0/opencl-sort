@@ -23,7 +23,7 @@
 
 #include "clutil.h"
 
-const char *clGetErrorString(cl_int error)
+const char *clGetErrorCode(cl_int error)
 {
     switch(error){
         // run-time and JIT compiler errors
@@ -100,107 +100,69 @@ const char *clGetErrorString(cl_int error)
     }
 }
 
-char *descriptionOfError(cl_int err) {
+const char *clGetErrorString(cl_int err) {
     switch (err) {
-    case CL_SUCCESS:                            return "Success!";
-    case CL_DEVICE_NOT_FOUND:                   return "Device not found.";
-    case CL_DEVICE_NOT_AVAILABLE:               return "Device not available";
-    case CL_COMPILER_NOT_AVAILABLE:             return "Compiler not available";
-    case CL_MEM_OBJECT_ALLOCATION_FAILURE:      return "Memory object allocation failure";
-    case CL_OUT_OF_RESOURCES:                   return "Out of resources";
-    case CL_OUT_OF_HOST_MEMORY:                 return "Out of host memory";
-    case CL_PROFILING_INFO_NOT_AVAILABLE:       return "Profiling information not available";
-    case CL_MEM_COPY_OVERLAP:                   return "Memory copy overlap";
-    case CL_IMAGE_FORMAT_MISMATCH:              return "Image format mismatch";
-    case CL_IMAGE_FORMAT_NOT_SUPPORTED:         return "Image format not supported";
-    case CL_BUILD_PROGRAM_FAILURE:              return "Program build failure";
-    case CL_MAP_FAILURE:                        return "Map failure";
-    case CL_INVALID_VALUE:                      return "Invalid value";
-    case CL_INVALID_DEVICE_TYPE:                return "Invalid device type";
-    case CL_INVALID_PLATFORM:                   return "Invalid platform";
-    case CL_INVALID_DEVICE:                     return "Invalid device";
-    case CL_INVALID_CONTEXT:                    return "Invalid context";
-    case CL_INVALID_QUEUE_PROPERTIES:           return "Invalid queue properties";
-    case CL_INVALID_COMMAND_QUEUE:              return "Invalid command queue";
-    case CL_INVALID_HOST_PTR:                   return "Invalid host pointer";
-    case CL_INVALID_MEM_OBJECT:                 return "Invalid memory object";
-    case CL_INVALID_IMAGE_FORMAT_DESCRIPTOR:    return "Invalid image format descriptor";
-    case CL_INVALID_IMAGE_SIZE:                 return "Invalid image size";
-    case CL_INVALID_SAMPLER:                    return "Invalid sampler";
-    case CL_INVALID_BINARY:                     return "Invalid binary";
-    case CL_INVALID_BUILD_OPTIONS:              return "Invalid build options";
-    case CL_INVALID_PROGRAM:                    return "Invalid program";
-    case CL_INVALID_PROGRAM_EXECUTABLE:         return "Invalid program executable";
-    case CL_INVALID_KERNEL_NAME:                return "Invalid kernel name";
-    case CL_INVALID_KERNEL_DEFINITION:          return "Invalid kernel definition";
-    case CL_INVALID_KERNEL:                     return "Invalid kernel";
-    case CL_INVALID_ARG_INDEX:                  return "Invalid argument index";
-    case CL_INVALID_ARG_VALUE:                  return "Invalid argument value";
-    case CL_INVALID_ARG_SIZE:                   return "Invalid argument size";
-    case CL_INVALID_KERNEL_ARGS:                return "Invalid kernel arguments";
-    case CL_INVALID_WORK_DIMENSION:             return "Invalid work dimension";
-    case CL_INVALID_WORK_GROUP_SIZE:            return "Invalid work group size";
-    case CL_INVALID_WORK_ITEM_SIZE:             return "Invalid work item size";
-    case CL_INVALID_GLOBAL_OFFSET:              return "Invalid global offset";
-    case CL_INVALID_EVENT_WAIT_LIST:            return "Invalid event wait list";
-    case CL_INVALID_EVENT:                      return "Invalid event";
-    case CL_INVALID_OPERATION:                  return "Invalid operation";
-    case CL_INVALID_GL_OBJECT:                  return "Invalid OpenGL object";
-    case CL_INVALID_BUFFER_SIZE:                return "Invalid buffer size";
-    case CL_INVALID_MIP_LEVEL:                  return "Invalid mip-map level";
+    case CL_SUCCESS:                            return "CL_SUCCESS: Success!";
+    case CL_DEVICE_NOT_FOUND:                   return "CL_DEVICE_NOT_FOUND: Device not found.";
+    case CL_DEVICE_NOT_AVAILABLE:               return "CL_DEVICE_NOT_AVAILABLE: Device not available";
+    case CL_COMPILER_NOT_AVAILABLE:             return "CL_COMPILER_NOT_AVAILABLE: Compiler not available";
+    case CL_MEM_OBJECT_ALLOCATION_FAILURE:      return "CL_MEM_OBJECT_ALLOCATION_FAILURE: Memory object allocation failure";
+    case CL_OUT_OF_RESOURCES:                   return "CL_OUT_OF_RESOURCES: Out of resources";
+    case CL_OUT_OF_HOST_MEMORY:                 return "CL_OUT_OF_HOST_MEMORY: Out of host memory";
+    case CL_PROFILING_INFO_NOT_AVAILABLE:       return "CL_PROFILING_INFO_NOT_AVAILABLE: Profiling information not available";
+    case CL_MEM_COPY_OVERLAP:                   return "CL_MEM_COPY_OVERLAP: Memory copy overlap";
+    case CL_IMAGE_FORMAT_MISMATCH:              return "CL_IMAGE_FORMAT_MISMATCH: Image format mismatch";
+    case CL_IMAGE_FORMAT_NOT_SUPPORTED:         return "CL_IMAGE_FORMAT_NOT_SUPPORTED: Image format not supported";
+    case CL_BUILD_PROGRAM_FAILURE:              return "CL_BUILD_PROGRAM_FAILURE: Program build failure";
+    case CL_MAP_FAILURE:                        return "CL_MAP_FAILURE: Map failure";
+    case CL_INVALID_VALUE:                      return "CL_INVALID_VALUE: Invalid value";
+    case CL_INVALID_DEVICE_TYPE:                return "CL_INVALID_DEVICE_TYPE: Invalid device type";
+    case CL_INVALID_PLATFORM:                   return "CL_INVALID_PLATFORM: Invalid platform";
+    case CL_INVALID_DEVICE:                     return "CL_INVALID_DEVICE: Invalid device";
+    case CL_INVALID_CONTEXT:                    return "CL_INVALID_CONTEXT: Invalid context";
+    case CL_INVALID_QUEUE_PROPERTIES:           return "CL_INVALID_QUEUE_PROPERTIES: Invalid queue properties";
+    case CL_INVALID_COMMAND_QUEUE:              return "CL_INVALID_COMMAND_QUEUE: Invalid command queue";
+    case CL_INVALID_HOST_PTR:                   return "CL_INVALID_HOST_PTR: Invalid host pointer";
+    case CL_INVALID_MEM_OBJECT:                 return "CL_INVALID_MEM_OBJECT: Invalid memory object";
+    case CL_INVALID_IMAGE_FORMAT_DESCRIPTOR:    return "CL_INVALID_IMAGE_FORMAT_DESCRIPTOR: Invalid image format descriptor";
+    case CL_INVALID_IMAGE_SIZE:                 return "CL_INVALID_IMAGE_SIZE: Invalid image size";
+    case CL_INVALID_SAMPLER:                    return "CL_INVALID_SAMPLER: Invalid sampler";
+    case CL_INVALID_BINARY:                     return "CL_INVALID_BINARY: Invalid binary";
+    case CL_INVALID_BUILD_OPTIONS:              return "CL_INVALID_BUILD_OPTIONS: Invalid build options";
+    case CL_INVALID_PROGRAM:                    return "CL_INVALID_PROGRAM: Invalid program";
+    case CL_INVALID_PROGRAM_EXECUTABLE:         return "CL_INVALID_PROGRAM_EXECUTABLE: Invalid program executable";
+    case CL_INVALID_KERNEL_NAME:                return "CL_INVALID_KERNEL_NAME: Invalid kernel name";
+    case CL_INVALID_KERNEL_DEFINITION:          return "CL_INVALID_KERNEL_DEFINITION: Invalid kernel definition";
+    case CL_INVALID_KERNEL:                     return "CL_INVALID_KERNEL: Invalid kernel";
+    case CL_INVALID_ARG_INDEX:                  return "CL_INVALID_ARG_INDEX: Invalid argument index";
+    case CL_INVALID_ARG_VALUE:                  return "CL_INVALID_ARG_VALUE: Invalid argument value";
+    case CL_INVALID_ARG_SIZE:                   return "CL_INVALID_ARG_SIZE: Invalid argument size";
+    case CL_INVALID_KERNEL_ARGS:                return "CL_INVALID_KERNEL_ARGS: Invalid kernel arguments";
+    case CL_INVALID_WORK_DIMENSION:             return "CL_INVALID_WORK_DIMENSION: Invalid work dimension";
+    case CL_INVALID_WORK_GROUP_SIZE:            return "CL_INVALID_WORK_GROUP_SIZE: Invalid work group size";
+    case CL_INVALID_WORK_ITEM_SIZE:             return "CL_INVALID_WORK_ITEM_SIZE: Invalid work item size";
+    case CL_INVALID_GLOBAL_OFFSET:              return "CL_INVALID_GLOBAL_OFFSET: Invalid global offset";
+    case CL_INVALID_EVENT_WAIT_LIST:            return "CL_INVALID_EVENT_WAIT_LIST: Invalid event wait list";
+    case CL_INVALID_EVENT:                      return "CL_INVALID_EVENT: Invalid event";
+    case CL_INVALID_OPERATION:                  return "CL_INVALID_OPERATION: Invalid operation";
+    case CL_INVALID_GL_OBJECT:                  return "CL_INVALID_GL_OBJECT: Invalid OpenGL object";
+    case CL_INVALID_BUFFER_SIZE:                return "CL_INVALID_BUFFER_SIZE: Invalid buffer size";
+    case CL_INVALID_MIP_LEVEL:                  return "CL_INVALID_MIP_LEVEL: Invalid mip-map level";
     default: return "Unknown";
     }
 }
 /*
- * the folowing four functions are used to check errors. when the
- * status doesn't satisfy the condition(==, !=, <, >), we first print
+ * the folowing function is used to check errors. when the
+ * status doesn't equal to CL_SUCCESS, we first print
  * the error code and message specified by the caller, then exit the program.
  */
-/* status must equal expect */
-void clCheckEqWithMsg(int status, int expect, char *msg){
-    if (status != expect){
-        const char *code = clGetErrorString(status);
-        printf("%s: %s\n", code, msg);
-        exit(-1);
-    }
-}
-/* status != expect */
-void clCheckNeqWithMsg(int status, int expect, char *msg){
-    if (status == expect){
-        const char *code = clGetErrorString(status);
-        printf("%s: %s\n", code, msg);
-        exit(-1);
-    }
-}
-/* status < expect */
-void clCheckLtWithMsg(int status, int expect, char *msg){
-    if (status >= expect){
-        const char *code = clGetErrorString(status);
-        printf("%s: %s\n", code, msg);
-        exit(-1);
-    }
-}
-/* status <= expected */
-void clCheckLteWithMsg(int status, int expect, char *msg){
-    if (status > expect){
-        const char *code = clGetErrorString(status);
-        printf("%s: %s\n", code, msg);
-        exit(-1);
-    }
-}
-/* status > expect */
-void clCheckGtWithMsg(int status, int expect, char *msg){
-    if (status <= expect){
-        const char *code = clGetErrorString(status);
-        printf("%s: %s\n", code, msg);
-        exit(-1);
-    }
-}
-/* status >= expect */
-void clCheckGteWithMsg(int status, int expect, char *msg){
-    if (status < expect){
-        const char *code = clGetErrorString(status);
-        printf("%s: %s\n", code, msg);
+void clCheckError(int err, char *msg)
+{
+    if(err != CL_SUCCESS)
+    {
+        const char *ss = clGetErrorString(err);
+        printf("%s\n", ss);
+        printf("message: \n", msg);
         exit(-1);
     }
 }
@@ -216,7 +178,7 @@ cl_context CreateContext()
     // simply choose the first available platform.  Normally, you would
     // query for all available platforms and select the most appropriate one.
     err = clGetPlatformIDs(1, &firstPlatformId, &numPlatforms);
-    clCheckEqWithMsg(err, CL_SUCCESS, "can't get the number of platforms\n");
+    clCheckError(err, "can't get the first platform\n");
     // Next, create an OpenCL context on the platform.  Attempt to
     // create a GPU-based context, and if that fails, try to create
     // a CPU-based context.
@@ -233,51 +195,51 @@ cl_context CreateContext()
         printf("Could not create GPU context, trying CPU...\n");
         context = clCreateContextFromType(contextProperties, CL_DEVICE_TYPE_CPU,
                                           NULL, NULL, &err);
-        clCheckEqWithMsg(err, CL_SUCCESS, "Failed to create an OpenCL GPU or CPU context.");
+        clCheckError(err, "Failed to create an OpenCL GPU or CPU context.");
     }
 
     return context;
 }
 
-/* cl_command_queue CreateCommandQueue(cl_context context, cl_device_id *device) */
-/* { */
-/*     cl_int err; */
-/*     cl_device_id *devices; */
-/*     cl_command_queue commandQueue = NULL; */
-/*     size_t deviceBufferSize = -1; */
+cl_command_queue CreateCommandQueue(cl_context context, cl_device_id *device)
+{
+    cl_int err;
+    cl_device_id *devices;
+    cl_command_queue commandQueue = NULL;
+    size_t deviceBufferSize = -1;
 
-/*     // First get the size of the devices buffer */
-/*     err = clGetContextInfo(context, CL_CONTEXT_DEVICES, 0, NULL, &deviceBufferSize); */
-/*     clCheckEqWithMsg(err, CL_SUCCESS, "Failed call to clGetContextInfo(...,GL_CONTEXT_DEVICES,...)"); */
+    // First get the size of the devices buffer
+    err = clGetContextInfo(context, CL_CONTEXT_DEVICES,
+                           0, NULL, &deviceBufferSize);
+    clCheckError(err, "Failed call to clGetContextInfo(...,GL_CONTEXT_DEVICES,...)");
+    if (deviceBufferSize <= 0)
+    {
+        printf("No devices available.");
+        return NULL;
+    }
 
-/*     if (deviceBufferSize <= 0) */
-/*     { */
-/*         std::cerr << "No devices available."; */
-/*         return NULL; */
-/*     } */
+    // Allocate memory for the devices buffer
+    devices = malloc(deviceBufferSize);
+    err = clGetContextInfo(context, CL_CONTEXT_DEVICES, deviceBufferSize, devices, NULL);
+    if (err != CL_SUCCESS)
+    {
+        free(devices);
+        printf("Failed to get device IDs");
+        return NULL;
+    }
 
-/*     // Allocate memory for the devices buffer */
-/*     devices = new cl_device_id[deviceBufferSize / sizeof(cl_device_id)]; */
-/*     err = clGetContextInfo(context, CL_CONTEXT_DEVICES, deviceBufferSize, devices, NULL); */
-/*     if (err != CL_SUCCESS) */
-/*     { */
-/*         delete [] devices; */
-/*         std::cerr << "Failed to get device IDs"; */
-/*         return NULL; */
-/*     } */
+    // In this example, we just choose the first available device.  In a
+    // real program, you would likely use all available devices or choose
+    // the highest performance device based on OpenCL device queries
+    commandQueue = clCreateCommandQueue(context, devices[0], 0, NULL);
+    if (commandQueue == NULL)
+    {
+        free(devices);
+        printf("Failed to create commandQueue for device 0");
+        return NULL;
+    }
 
-/*     // In this example, we just choose the first available device.  In a */
-/*     // real program, you would likely use all available devices or choose */
-/*     // the highest performance device based on OpenCL device queries */
-/*     commandQueue = clCreateCommandQueue(context, devices[0], 0, NULL); */
-/*     if (commandQueue == NULL) */
-/*     { */
-/*         delete [] devices; */
-/*         std::cerr << "Failed to create commandQueue for device 0"; */
-/*         return NULL; */
-/*     } */
-
-/*     *device = devices[0]; */
-/*     delete [] devices; */
-/*     return commandQueue; */
-/* } */
+    *device = devices[0];
+    free(devices);
+    return commandQueue;
+}
